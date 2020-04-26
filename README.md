@@ -8,7 +8,7 @@ Design and world files for my 8-bit computer built inside Minecraft. Watch the t
 * World: Contains a copy of the Minecraft Bedrock (Windows 10) world
 * Design: Contains the ModuleSim and Logisim files as presented in the YouTube series
 * Hex8.html: Specification of the Hex8 machine
-* A simple assembler for the architecture is available at [https://github.com/uobcomparch/hex8as]
+* A simple assembler for the architecture is available at [https://github.com/uobcomparch/hex8as](https://github.com/uobcomparch/hex8as)
 * Program.hex: The sample program already programmed into the Minecraft machine
 
 ## How to use this repository
