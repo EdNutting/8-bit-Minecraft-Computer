@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ModuleSim>
+  <view camX="591.1790131659393" camY="274.8702784488182" zoom="3"/>
+  <ModuleSim>
+    <module ID="0" type="ADDSUB">
+      <dim orient="0" x="-525.0" y="-225.0"/>
+      <inputs>
+        <input ID="4"/>
+        <input ID="5"/>
+        <input ID="6"/>
+      </inputs>
+      <outputs>
+        <output ID="1"/>
+        <output ID="2"/>
+        <output ID="3"/>
+      </outputs>
+      <data label="" label_size="0"/>
+    </module>
+    <module ID="7" type="ADDSUB">
+      <dim orient="0" x="-275.0" y="-225.0"/>
+      <inputs>
+        <input ID="11"/>
+        <input ID="12"/>
+        <input ID="13"/>
+      </inputs>
+      <outputs>
+        <output ID="8"/>
+        <output ID="9"/>
+        <output ID="10"/>
+      </outputs>
+      <data label="" label_size="0"/>
+    </module>
+    <module ID="14" type="SWITCH">
+      <dim orient="0" x="-600.0" y="-25.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="15"/>
+      </outputs>
+      <data label="A High 4 Bits" label_size="0" switch_set="0000"/>
+    </module>
+    <module ID="16" type="SWITCH">
+      <dim orient="0" x="-475.0" y="-25.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="17"/>
+      </outputs>
+      <data label="A Low 4 Bits" label_size="0" switch_set="0000"/>
+    </module>
+    <module ID="18" type="SWITCH">
+      <dim orient="0" x="-325.0" y="-25.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="19"/>
+      </outputs>
+      <data label="B High 4 Bits" label_size="0" switch_set="0000"/>
+    </module>
+    <module ID="20" type="SWITCH">
+      <dim orient="0" x="-200.0" y="-25.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="21"/>
+      </outputs>
+      <data label="B Low 4 Bits" label_size="0" switch_set="0000"/>
+    </module>
+    <module ID="22" type="SWITCH">
+      <dim orient="-1" x="-25.0" y="-225.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="23"/>
+      </outputs>
+      <data label="" label_size="0" switch_set="0110"/>
+    </module>
+  </ModuleSim>
+  <links>
+    <link src="10" targ="6" type="StraightPath"/>
+    <link src="15" targ="4" type="StraightPath">
+      <ctrlPt x="-600.0" y="-100.0"/>
+      <ctrlPt x="-550.0" y="-100.0"/>
+    </link>
+    <link src="17" targ="11" type="StraightPath">
+      <ctrlPt x="-475.0" y="-100.0"/>
+      <ctrlPt x="-300.0" y="-100.0"/>
+    </link>
+    <link src="19" targ="5" type="StraightPath">
+      <ctrlPt x="-325.0" y="-75.0"/>
+      <ctrlPt x="-500.0" y="-75.0"/>
+    </link>
+    <link src="21" targ="12" type="StraightPath">
+      <ctrlPt x="-200.0" y="-75.0"/>
+      <ctrlPt x="-250.0" y="-75.0"/>
+    </link>
+    <link src="23" targ="13" type="StraightPath"/>
+  </links>
+</ModuleSim>

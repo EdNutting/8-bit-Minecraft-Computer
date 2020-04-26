@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>hex8</title>
+<link rel="stylesheet" href="hex8_files/styles.css">
+</head>
+<body>
+<h1>The Hex8 processor and instruction set</h1>
+
+<h2>Registers</h2>
+
+<p>A Hex8 processor has four registers, each holding 8 bits.</p>
+
+<ul>
+<li>The A register (<code>areg</code>).</li>
+<li>The B register (<code>breg</code>).</li>
+<li>The program counter (<code>pc</code>).</li>
+<li>The offset register (<code>oreg</code>).</li>
+</ul>
+
+<h2>Execution</h2>
+
+<p>Instructions execute as follows.</p>
+
+<ol>
+<li>Load the current instruction from memory - the one that <code>pc</code> is pointing at.</li>
+<li>Copy the operand (low 4 bits of the instruction byte) into the low 4 bits
+ of the offset register.</li>
+<li>Increment the program counter.</li>
+<li>Execute the instruction.</li>
+<li>Unless the instruction was a <code>PFIX</code>, set the offset register to 0.</li>
+</ol>
+
+<p>Since the program counter increases <em>before</em> the instruction executes, this
+needs to be taken into account if an instruction wishes to modify the program
+counter itself.</p>
+
+<h2>Instructions</h2>
+
+<p>There are 16 Hex8 instructions. In the following, <code>a &lt;- b</code> means copy the value
+of <code>b</code> to <code>a</code> (both of these are registers or memory locations) and <code>mem[x]</code>
+means byte <code>x</code> of memory.</p>
+
+<p>Each instruction is one byte long, of which the high 4 bits are the opcode
+(given in hex and binary in the table below) and the low 4 bits are the operand
+that gets placed in the low 4 bits of <code>oreg</code> before the instruction executes.</p>
+
+<table>
+<colgroup>
+<col style="text-align:right;">
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+
+<thead>
+<tr>
+	<th style="text-align:right;">hex</th>
+	<th>binary</th>
+	<th>opcode</th>
+	<th>operation</th>
+	<th>description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td style="text-align:right;">0</td>
+	<td>0000</td>
+	<td><code>LDAM</code></td>
+	<td><code>areg &lt;- mem[oreg]</code></td>
+	<td>Load A register from memory</td>
+</tr>
+<tr>
+	<td style="text-align:right;">1</td>
+	<td>0001</td>
+	<td><code>LDBM</code></td>
+	<td><code>breg &lt;- mem[oreg]</code></td>
+	<td>Load B register from memory</td>
+</tr>
+<tr>
+	<td style="text-align:right;">2</td>
+	<td>0010</td>
+	<td><code>STAM</code></td>
+	<td><code>mem[oreg] &lt;- areg</code></td>
+	<td>Store A register to memory</td>
+</tr>
+<tr>
+	<td style="text-align:right;">3</td>
+	<td>0011</td>
+	<td><code>LDAC</code></td>
+	<td><code>areg &lt;- oreg</code></td>
+	<td>Load a constant into the A register</td>
+</tr>
+<tr>
+	<td style="text-align:right;">4</td>
+	<td>0100</td>
+	<td><code>LDBC</code></td>
+	<td><code>breg &lt;- oreg</code></td>
+	<td>Load a constant into the B register</td>
+</tr>
+<tr>
+	<td style="text-align:right;">5</td>
+	<td>0101</td>
+	<td><code>LDAP</code></td>
+	<td><code>areg &lt;- pc + oreg</code></td>
+	<td>Load a pc offset into the A register</td>
+</tr>
+<tr>
+	<td style="text-align:right;">6</td>
+	<td>0110</td>
+	<td><code>LDAI</code></td>
+	<td><code>areg &lt;- mem[areg + oreg]</code></td>
+	<td>Indexed load of A register</td>
+</tr>
+<tr>
+	<td style="text-align:right;">7</td>
+	<td>0111</td>
+	<td><code>LDBI</code></td>
+	<td><code>breg &lt;- mem[breg + oreg]</code></td>
+	<td>Indexed load of B register</td>
+</tr>
+<tr>
+	<td style="text-align:right;">8</td>
+	<td>1000</td>
+	<td><code>STAI</code></td>
+	<td><code>mem[breg + oreg] &lt;- areg</code></td>
+	<td>Indexed store</td>
+</tr>
+<tr>
+	<td style="text-align:right;">9</td>
+	<td>1001</td>
+	<td><code>BR</code></td>
+	<td><code>pc &lt;- pc + oreg</code></td>
+	<td>relative branch</td>
+</tr>
+<tr>
+	<td style="text-align:right;">A</td>
+	<td>1010</td>
+	<td><code>BRZ</code></td>
+	<td><code>if areg=0 then pc &lt;- pc + oreg</code></td>
+	<td>conditional branch</td>
+</tr>
+<tr>
+	<td style="text-align:right;">B</td>
+	<td>1011</td>
+	<td><code>BRN</code></td>
+	<td><code>if areg&lt;0 then pc &lt;- pc + oreg</code></td>
+	<td>conditional branch</td>
+</tr>
+<tr>
+	<td style="text-align:right;">C</td>
+	<td>1100</td>
+	<td><code>BRB</code></td>
+	<td><code>pc &lt;- breg</code></td>
+	<td>absolute branch using B register</td>
+</tr>
+<tr>
+	<td style="text-align:right;">D</td>
+	<td>1101</td>
+	<td><code>ADD</code></td>
+	<td><code>areg &lt;- areg + breg</code></td>
+	<td>add, result goes in A register</td>
+</tr>
+<tr>
+	<td style="text-align:right;">E</td>
+	<td>1110</td>
+	<td><code>SUB</code></td>
+	<td><code>areg &lt;- areg - breg</code></td>
+	<td>subtract, result goes in A register</td>
+</tr>
+<tr>
+	<td style="text-align:right;">F</td>
+	<td>1111</td>
+	<td><code>PFIX</code></td>
+	<td><code>oreg &lt;- oreg &lt;&lt; 4</code></td>
+	<td>set high bits of offset register</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Prefixing</h2>
+
+<p>Since an instruction only has 4 bits for the operand, the <code>PFIX</code> instruction
+exists to set the high 4 bits of the offset register. Thus to load the constant
+<code>0xAC</code> into the A register, the sequence of instructions is <code>PFIX A, LDAC C</code> or
+<code>0xFA 4C</code> in hexadecimal.</p>
+
+<p>After <code>PFIX A</code>, the offset register holds the constant <code>0xA0</code> (and <code>PFIX</code> is the
+only instruction that does <em>not</em> clear the offset register), then before the
+<code>LDAC</code> executes the constant <code>0x0C</code> is added to the offset making it <code>0xAC</code>.</p>
+
+<p>A prefix instruction and its successor can mentally be thought of as a single
+instruction with an 8-bit operand, thus <code>PFIX D, STAM 3</code> represents “<code>STAM 0xD3</code>”
+which stores the contents of the A register to memory location <code>0xD3</code>.</p>
+
+<p>An important consequence of this choice in creating the instruction set is that
+addressing memory at locations <code>0x00-0x0F</code> takes one instruction whereas locations
+<code>0x10-0xFF</code> take two instructions to address directly, thus twice as much space
+in the program and twice as much time to execute.</p>
+
+<p>Similarly, relative jumps forward up to 16 bytes are one instruction:
+<code>0x9F = BR F</code> jumps forwards 16 bytes, 15 (<code>0x0F</code>) from the instruction and one
+because the program counter has already increased. But backwards jumps, where
+the offset is a negative number, take two bytes even if they are only by a
+small amount.</p>
+
+<h2>Constant instructions</h2>
+
+<p><code>LDAC</code> and <code>LDBC</code> load a 4-bit constant into the A and B registers respectively.
+Use a <code>PFIX</code> beforehand to load an 8-bit constant.</p>
+
+<h2>Arithmetic instructions</h2>
+
+<p><code>ADD</code> and <code>SUB</code> operate on the A and B registers and place the result in the A
+register. They ignore any operands they are given. If an <code>ADD</code> overflows, it
+just wraps around; <code>SUB</code> operates in 2s complement arithmetic e.g. if you
+subtract 1 from 0 (<code>LDAC 0, LDBC 1, SUB</code>) then you get <code>0xFF</code> in the A register
+which you can interpret as (–1) in 2s complement or 255 in unsigned arithmetic.</p>
+
+<h2>Memory instructions</h2>
+
+<p><code>LDAM</code> and <code>LDBM</code> load the A and B registers respectively from the memory
+location indicated by their operand. For access to memory beyond <code>0x0F</code>, this
+requires a preceding <code>PFIX</code> instruction.</p>
+
+<p><code>STAM</code> stores the A register to memory. There is no <code>STBM</code> instruction so if you
+want to move some data to memory, you should load it into the A not the B
+register in the first place. Outputs of <code>ADD</code> and <code>SUB</code> appear in the A not the
+B register for this reason too. If you do need to store the contents of the B
+register, the sequence <code>LDAC 0, ADD</code> has the effect of copying the B register’s
+value into the A register from where you can store it; this also erases the old
+value of the A register so you need to save that to memory first if you need it.</p>
+
+<p>The instruction <code>LDAI 0</code> loads the element from memory at the address which the
+A register is currently pointing to, which is why it is called an <em>indirect load</em>.
+So the sequence of instructions <code>LDAC 8, LDAI 0</code> first loads the constant 8 into
+the A register, then fetches the element at memory address 8 into the A register.
+This sequence is equivalent to <code>LDAM 8</code> directly, but you have to do an indirect
+load when you need to compute the address you want to fetch from rather than
+hard-coding it in your program. <code>LDBI 0</code> does the exact same with the B register
+for both address and destination.</p>
+
+<p><code>LDAI</code> and <code>LDBI</code> with non-zero operands are useful for loading elements from
+arrays. If you want to fetch the 5th element of an array of bytes for example,
+you first load the address where the array starts into the A register and then
+execute <code>LDAI 4</code>, since indexing starts at 0. Of course you can use prefixes to
+load beyond the 16th element of an array.</p>
+
+<p><code>STAI</code> is an indirect store. To use it, load the value to store into the A
+register, the starting address of your data array into the B register and put
+the offset into the offset register. For example, if the address of the start of
+your data is currently stored at memory address <code>0x0A</code> and you want to put a <code>1</code>
+into the 3rd element, the sequence <code>LDAC 1, LDBM A, STAI 2</code> does that for you.
+There is no <code>STBI</code> instruction.</p>
+
+<p><code>LDAP</code> is used to find the address of a relative jump, useful in constructing
+function calls. The point of this instruction is that you can write code which
+works wherever in memory you place it. <code>LDAP 0</code> gets the address of the <em>next</em>
+instruction since when the <code>LDAP</code> executes, the program counter has already been
+incremented.</p>
+
+<h2>Branching instructions</h2>
+
+<p><code>BR</code> is a relative branch. <code>BR 0 (0x90)</code> is a no-op since it jumps by 0 after
+the program counter has been incremented, thus landing on the next instruction.
+The main use of <code>BR</code> is jumps within a function or block of code, which being
+relative branches means the code does not need to be adjusted if it is moved
+somewhere else in memory.</p>
+
+<p><code>BRZ</code> and <code>BRN</code> are conditional relative branches. The former branches only if
+the A register is exactly zero, the latter if the high bit of the A register is
+set (which represents a negative number in 2s complement). These two instructions
+can be used to do all the usual conditional tests, for example to branch if
+<code>x &gt; y</code> you compute <code>y - x</code> and branch if the result is negative. To test <code>x = y</code>
+you compute <code>y - x</code> or <code>x - y</code> (it doesn’t matter which) and then branch if the
+result is zero. To test <code>x &gt;= y</code> you test for the negation <code>x &lt; y</code>.</p>
+
+<p>A combination of <code>BR</code>, <code>BRZ</code> and <code>BRN</code> can implement all the usual control
+structures such as IF/ELSE and different forms of LOOP.</p>
+
+<p><code>BRB</code> is an absolute branch where you load the target into the B register first.
+It ignores its operand. Its main use is in function calls, where after setting
+up parameters and return addresses you load the function’s address into the B
+register and then call <code>BRB</code>. This means that your code will still work if you
+move the <em>calling</em> code around, though you have to adjust it if you move the
+<em>callee</em> (i.e. the function you’re calling) somewhere else.</p>
+
+<h2>Halting the processor</h2>
+
+<p>The Hex8 processor halts if it encounters a <code>BR</code> instruction and the offset
+register is set to <code>0xFE</code>. The only way to produce this situation is with the
+sequence <code>0xFF 0x9E (PFIX F, BR E)</code> which would otherwise produce an infinite
+loop.</p>
+
+
+
+</body></html>

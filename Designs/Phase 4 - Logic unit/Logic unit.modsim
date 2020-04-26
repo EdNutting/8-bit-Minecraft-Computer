@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ModuleSim>
+  <view camX="146.16225176216597" camY="362.1977007561074" zoom="2"/>
+  <ModuleSim>
+    <module ID="0" type="MUX">
+      <dim orient="-1" x="-150.0" y="-175.0"/>
+      <inputs>
+        <input ID="3"/>
+        <input ID="4"/>
+        <input ID="5"/>
+        <input ID="6"/>
+        <input ID="7"/>
+      </inputs>
+      <outputs>
+        <output ID="1"/>
+        <output ID="2"/>
+      </outputs>
+      <data label="" label_size="0"/>
+    </module>
+    <module ID="8" type="ADDSUB">
+      <dim orient="0" x="-500.0" y="-175.0"/>
+      <inputs>
+        <input ID="12"/>
+        <input ID="13"/>
+        <input ID="14"/>
+      </inputs>
+      <outputs>
+        <output ID="9"/>
+        <output ID="10"/>
+        <output ID="11"/>
+      </outputs>
+      <data label="" label_size="0"/>
+    </module>
+    <module ID="15" type="ADDSUB">
+      <dim orient="0" x="-325.0" y="-175.0"/>
+      <inputs>
+        <input ID="19"/>
+        <input ID="20"/>
+        <input ID="21"/>
+      </inputs>
+      <outputs>
+        <output ID="16"/>
+        <output ID="17"/>
+        <output ID="18"/>
+      </outputs>
+      <data label="" label_size="0"/>
+    </module>
+    <module ID="22" type="SWITCH">
+      <dim orient="-1" x="-25.0" y="-150.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="23"/>
+      </outputs>
+      <data label="Comparison mode" label_size="0" switch_set="0111"/>
+    </module>
+    <module ID="24" type="SWITCH">
+      <dim orient="0" x="-525.0" y="-50.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="25"/>
+      </outputs>
+      <data label="A Hi" label_size="0" switch_set="0000"/>
+    </module>
+    <module ID="26" type="SWITCH">
+      <dim orient="0" x="-350.0" y="-50.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="27"/>
+      </outputs>
+      <data label="A Lo" label_size="0" switch_set="0000"/>
+    </module>
+    <module ID="28" type="MUX">
+      <dim orient="-1" x="-600.0" y="-525.0"/>
+      <inputs>
+        <input ID="31"/>
+        <input ID="32"/>
+        <input ID="33"/>
+        <input ID="34"/>
+        <input ID="35"/>
+      </inputs>
+      <outputs>
+        <output ID="29"/>
+        <output ID="30"/>
+      </outputs>
+      <data label="Condition enable?" label_size="0"/>
+    </module>
+    <module ID="36" type="MUX">
+      <dim orient="0" x="-775.0" y="-525.0"/>
+      <inputs>
+        <input ID="39"/>
+        <input ID="40"/>
+        <input ID="41"/>
+        <input ID="42"/>
+        <input ID="43"/>
+      </inputs>
+      <outputs>
+        <output ID="37"/>
+        <output ID="38"/>
+      </outputs>
+      <data label="Branch disable?" label_size="0"/>
+    </module>
+    <module ID="44" type="SWITCH">
+      <dim orient="0" x="-825.0" y="-350.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="45"/>
+      </outputs>
+      <data label="Branch instruction?" label_size="0" switch_set="0000"/>
+    </module>
+    <module ID="46" type="REGISTER">
+      <dim orient="0" x="-775.0" y="-700.0"/>
+      <inputs>
+        <input ID="47"/>
+        <input ID="48"/>
+      </inputs>
+      <outputs>
+        <output ID="49"/>
+        <output ID="50"/>
+      </outputs>
+      <data label="Branch enable" label_size="0" latched_value="0000"/>
+    </module>
+    <module ID="51" type="SWITCH">
+      <dim orient="3" x="-550.0" y="-700.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="52"/>
+      </outputs>
+      <data label="Conditional instruction?" label_size="0" switch_set="0000"/>
+    </module>
+    <module ID="53" type="SWITCH">
+      <dim orient="-1" x="-25.0" y="-350.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="54"/>
+      </outputs>
+      <data label="Branch type: Z / N = 0 / 1" label_size="0" switch_set="0000"/>
+    </module>
+    <module ID="55" type="LOGIC">
+      <dim orient="0" x="-500.0" y="-350.0"/>
+      <inputs>
+        <input ID="58"/>
+        <input ID="59"/>
+        <input ID="60"/>
+      </inputs>
+      <outputs>
+        <output ID="56"/>
+        <output ID="57"/>
+      </outputs>
+      <data label="" label_size="0"/>
+    </module>
+  </ModuleSim>
+  <links>
+    <link src="18" targ="14" type="StraightPath"/>
+    <link src="1" targ="21" type="StraightPath"/>
+    <link src="23" targ="4" type="StraightPath"/>
+    <link src="25" targ="12" type="StraightPath"/>
+    <link src="27" targ="19" type="StraightPath"/>
+    <link src="29" targ="43" type="StraightPath"/>
+    <link src="45" targ="39" type="StraightPath"/>
+    <link src="37" targ="47" type="StraightPath"/>
+    <link src="52" targ="35" type="StraightPath">
+      <ctrlPt x="-600.0" y="-700.0"/>
+    </link>
+    <link src="54" targ="7" type="StraightPath">
+      <ctrlPt x="-150.0" y="-350.0"/>
+    </link>
+    <link src="56" targ="32" type="StraightPath">
+      <ctrlPt x="-500.0" y="-500.0"/>
+    </link>
+    <link src="10" targ="58" type="StraightPath"/>
+  </links>
+</ModuleSim>

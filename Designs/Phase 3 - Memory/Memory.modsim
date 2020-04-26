@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ModuleSim>
+  <view camX="61.48302169197666" camY="300.4303378979031" zoom="2"/>
+  <ModuleSim>
+    <module ID="0" type="RAM">
+      <dim orient="0" x="-600.0" y="-250.0"/>
+      <inputs>
+        <input ID="1"/>
+        <input ID="2"/>
+        <input ID="3"/>
+        <input ID="4"/>
+        <input ID="5"/>
+        <input ID="6"/>
+        <input ID="7"/>
+      </inputs>
+      <outputs>
+        <output ID="8"/>
+        <output ID="9"/>
+        <output ID="10"/>
+      </outputs>
+      <data label="" label_size="0" memory_store="00&#9;" write_jumper="1"/>
+    </module>
+    <module ID="11" type="SWITCH">
+      <dim orient="0" x="-675.0" y="-75.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="12"/>
+      </outputs>
+      <data label="Mem Hi In" label_size="0" switch_set="0000"/>
+    </module>
+    <module ID="13" type="SWITCH">
+      <dim orient="0" x="-550.0" y="-75.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="14"/>
+      </outputs>
+      <data label="Mem Lo In" label_size="0" switch_set="0000"/>
+    </module>
+    <module ID="15" type="REGISTER">
+      <dim orient="0" x="-725.0" y="-800.0"/>
+      <inputs>
+        <input ID="16"/>
+        <input ID="17"/>
+      </inputs>
+      <outputs>
+        <output ID="18"/>
+        <output ID="19"/>
+      </outputs>
+      <data label="Opcode" label_size="0" latched_value="0000"/>
+    </module>
+    <module ID="20" type="REGISTER">
+      <dim orient="0" x="-600.0" y="-800.0"/>
+      <inputs>
+        <input ID="21"/>
+        <input ID="22"/>
+      </inputs>
+      <outputs>
+        <output ID="23"/>
+        <output ID="24"/>
+      </outputs>
+      <data label="Operand" label_size="0" latched_value="0000"/>
+    </module>
+    <module ID="25" type="CLOCK">
+      <dim orient="0" x="200.0" y="-175.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="26"/>
+        <output ID="27"/>
+      </outputs>
+      <data clock_phase="1" label="" label_size="0"/>
+    </module>
+    <module ID="28" type="SPLIT_MERGE">
+      <dim orient="1" x="-450.0" y="-150.0"/>
+      <inputs>
+        <input ID="29"/>
+        <input ID="30"/>
+      </inputs>
+      <outputs>
+        <output ID="31"/>
+        <output ID="32"/>
+        <output ID="33"/>
+        <output ID="34"/>
+      </outputs>
+      <data label="" label_size="0"/>
+    </module>
+    <module ID="35" type="SWITCH">
+      <dim orient="-1" x="-350.0" y="-125.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="36"/>
+      </outputs>
+      <data label="Mem Write Enable" label_size="0" switch_set="0000"/>
+    </module>
+    <module ID="37" type="MUX">
+      <dim orient="-1" x="-300.0" y="-350.0"/>
+      <inputs>
+        <input ID="40"/>
+        <input ID="41"/>
+        <input ID="42"/>
+        <input ID="43"/>
+        <input ID="44"/>
+      </inputs>
+      <outputs>
+        <output ID="38"/>
+        <output ID="39"/>
+      </outputs>
+      <data label="Mem Hi Address" label_size="0"/>
+    </module>
+    <module ID="45" type="MUX">
+      <dim orient="-1" x="-300.0" y="-525.0"/>
+      <inputs>
+        <input ID="48"/>
+        <input ID="49"/>
+        <input ID="50"/>
+        <input ID="51"/>
+        <input ID="52"/>
+      </inputs>
+      <outputs>
+        <output ID="46"/>
+        <output ID="47"/>
+      </outputs>
+      <data label="Mem Lo Address" label_size="0"/>
+    </module>
+    <module ID="53" type="FANOUT">
+      <dim orient="0" x="-675.0" y="-425.0"/>
+      <inputs>
+        <input ID="58"/>
+      </inputs>
+      <outputs>
+        <output ID="54"/>
+        <output ID="55"/>
+        <output ID="56"/>
+        <output ID="57"/>
+      </outputs>
+      <data label="" label_size="0"/>
+    </module>
+    <module ID="59" type="FANOUT">
+      <dim orient="0" x="-525.0" y="-425.0"/>
+      <inputs>
+        <input ID="64"/>
+      </inputs>
+      <outputs>
+        <output ID="60"/>
+        <output ID="61"/>
+        <output ID="62"/>
+        <output ID="63"/>
+      </outputs>
+      <data label="" label_size="0"/>
+    </module>
+    <module ID="65" type="MUX">
+      <dim orient="0" x="-50.0" y="-750.0"/>
+      <inputs>
+        <input ID="68"/>
+        <input ID="69"/>
+        <input ID="70"/>
+        <input ID="71"/>
+        <input ID="72"/>
+      </inputs>
+      <outputs>
+        <output ID="66"/>
+        <output ID="67"/>
+      </outputs>
+      <data label="Data Hi Out" label_size="0"/>
+    </module>
+    <module ID="73" type="MUX">
+      <dim orient="0" x="125.0" y="-750.0"/>
+      <inputs>
+        <input ID="76"/>
+        <input ID="77"/>
+        <input ID="78"/>
+        <input ID="79"/>
+        <input ID="80"/>
+      </inputs>
+      <outputs>
+        <output ID="74"/>
+        <output ID="75"/>
+      </outputs>
+      <data label="Data Lo Out" label_size="0"/>
+    </module>
+    <module ID="81" type="SPLIT_MERGE">
+      <dim orient="1" x="-475.0" y="-775.0"/>
+      <inputs>
+        <input ID="82"/>
+        <input ID="83"/>
+      </inputs>
+      <outputs>
+        <output ID="84"/>
+        <output ID="85"/>
+        <output ID="86"/>
+        <output ID="87"/>
+      </outputs>
+      <data label="" label_size="0"/>
+    </module>
+    <module ID="88" type="SWITCH">
+      <dim orient="-1" x="-375.0" y="-750.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="89"/>
+      </outputs>
+      <data label="Op Write Enable" label_size="0" switch_set="0001"/>
+    </module>
+  </ModuleSim>
+  <links>
+    <link src="12" targ="1" type="StraightPath">
+      <ctrlPt x="-675.0" y="-125.0"/>
+      <ctrlPt x="-625.0" y="-125.0"/>
+    </link>
+    <link src="14" targ="2" type="StraightPath">
+      <ctrlPt x="-550.0" y="-125.0"/>
+      <ctrlPt x="-575.0" y="-125.0"/>
+    </link>
+    <link src="24" targ="17" type="StraightPath"/>
+    <link src="29" targ="3" type="StraightPath"/>
+    <link src="26" targ="31" type="StraightPath"/>
+    <link src="36" targ="33" type="StraightPath"/>
+    <link src="47" targ="44" type="StraightPath"/>
+    <link src="38" targ="5" type="StraightPath">
+      <ctrlPt x="-400.0" y="-350.0"/>
+      <ctrlPt x="-400.0" y="-275.0"/>
+    </link>
+    <link src="46" targ="4" type="StraightPath">
+      <ctrlPt x="-425.0" y="-525.0"/>
+      <ctrlPt x="-425.0" y="-300.0"/>
+    </link>
+    <link src="54" targ="16" type="StraightPath"/>
+    <link src="60" targ="21" type="StraightPath">
+      <ctrlPt x="-575.0" y="-750.0"/>
+      <ctrlPt x="-600.0" y="-750.0"/>
+    </link>
+    <link src="75" targ="72" type="StraightPath"/>
+    <link src="55" targ="69" type="StraightPath">
+      <ctrlPt x="-700.0" y="-650.0"/>
+      <ctrlPt x="-75.0" y="-650.0"/>
+    </link>
+    <link src="61" targ="77" type="StraightPath">
+      <ctrlPt x="-550.0" y="-625.0"/>
+      <ctrlPt x="100.0" y="-625.0"/>
+    </link>
+    <link src="39" targ="80" type="StraightPath">
+      <ctrlPt x="-300.0" y="-250.0"/>
+      <ctrlPt x="-175.0" y="-250.0"/>
+      <ctrlPt x="-175.0" y="-600.0"/>
+      <ctrlPt x="225.0" y="-600.0"/>
+      <ctrlPt x="225.0" y="-750.0"/>
+    </link>
+    <link src="8" targ="58" type="StraightPath">
+      <ctrlPt x="-625.0" y="-375.0"/>
+      <ctrlPt x="-675.0" y="-375.0"/>
+    </link>
+    <link src="9" targ="64" type="StraightPath">
+      <ctrlPt x="-575.0" y="-375.0"/>
+      <ctrlPt x="-525.0" y="-375.0"/>
+    </link>
+    <link src="82" targ="22" type="StraightPath"/>
+    <link src="89" targ="86" type="StraightPath"/>
+  </links>
+</ModuleSim>
