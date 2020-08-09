@@ -290,6 +290,7 @@ function memedit_accept() {
 
     for (var index = 0; index < text.length; index++) {
         var ch = text[index];
+		ch = ch.toUpperCase();
         if (cur == "") {
             // expecting first char. or whitespace
             if (ch == " " || ch == "\n") { continue; }
@@ -373,26 +374,46 @@ function breakpoints() {
 
 /* emulator */
 
+function emul_add(x, y) {
+	let z = x + y;
+	if (z < 0) {
+		z += 256;
+	}
+	return z % 256;
+}
+
+function emul_sub(x, y) {
+	let z = x - y;
+	if (z < 0) {
+		z += 256;
+	}
+	return z % 256;
+}
+
+function emul_shift(x, y) {
+	return x << y; // TODO: This may be broken
+}
+
 var ISA = [
     { name: 'LDAM', opcode: 0, run: function() { ra(mem(ro())); ro(0); } },
     { name: 'LDBM', opcode: 1, run: function() { rb(mem(ro())); ro(0); } },
     { name: 'STAM', opcode: 2, run: function() { mem(ro(), ra()); ro(0); } },
     { name: 'LDAC', opcode: 3, run: function() { ra(ro()); ro(0); } },
     { name: 'LDBC', opcode: 4, run: function() { rb(ro()); ro(0); } },
-    { name: 'LDAP', opcode: 5, run: function() { ra(rp()+ro()); ro(0); } },
-    { name: 'LDAI', opcode: 6, run: function() { ra(mem(ra()+ro())); ro(0); } },
-    { name: 'LDBI', opcode: 7, run: function() { rb(mem(rb()+ro())); ro(0); } },
-    { name: 'STAI', opcode: 8, run: function() { mem(rb()+ro(),ra()); ro(0);} },
+    { name: 'LDAP', opcode: 5, run: function() { ra(emul_add(rp(), ro())); ro(0); } },
+    { name: 'LDAI', opcode: 6, run: function() { ra(mem(emul_add(ra(), ro()))); ro(0); } },
+    { name: 'LDBI', opcode: 7, run: function() { rb(mem(emul_add(rb(), ro()))); ro(0); } },
+    { name: 'STAI', opcode: 8, run: function() { mem(emul_add(rb(), ro()),ra()); ro(0);} },
     { name: 'BR'  , opcode: 9, run: function() { if (ro() == 254) { hlt(); }
-                                                 else {rp(rp()+ro());} ro(0);}},
-    { name: 'BRZ' , opcode:10, run: function() { if (ra()==0) {rp(rp()+ro());}
+                                                 else {rp(emul_add(rp(), ro()));} ro(0);}},
+    { name: 'BRZ' , opcode:10, run: function() { if (ra()==0) {rp(emul_add(rp(), ro()));}
                                                  ro(0);} },
-    { name: 'BRN' , opcode:11, run: function() { if (ra()>127) {rp(rp()+ro());}
+    { name: 'BRN' , opcode:11, run: function() { if (ra()>127) {rp(emul_add(rp(), ro()));}
                                                  ro(0);} },
     { name: 'BRB' , opcode:12, run: function() { rp(rb()); ro(0); } },
-    { name: 'ADD' , opcode:13, run: function() { ra(ra()+rb()); ro(0); } },
-    { name: 'SUB' , opcode:14, run: function() { ra(ra()-rb()); ro(0); } },
-    { name: 'PFIX', opcode:15, run: function() { ro(ro() << 4); } }
+    { name: 'ADD' , opcode:13, run: function() { ra(emul_add(ra(), rb())); ro(0); } },
+    { name: 'SUB' , opcode:14, run: function() { ra(emul_sub(ra(), rb())); ro(0); } },
+    { name: 'PFIX', opcode:15, run: function() { ro(emul_shift(ro(), 4)); } }
 ];
 
 function is_running() {
